@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "SQL Injection Demo";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-3">🔒 SQL Injection Demo</h1>
+        <p class="lead">Demostración educativa de vulnerabilidad SQL Injection</p>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>⚠️ Advertencia:</strong> Este proyecto es solo para fines educativos. 
+        Nunca utilices código vulnerable en aplicaciones de producción.
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6 mb-4">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3>🔓 Login Vulnerable</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Este login <strong>NO</strong> protege contra SQL Injection. 
+                        Las entradas del usuario se concatenan directamente en la consulta SQL.
+                    </p>
+                    <h5>Ejemplos de ataques:</h5>
+                    <ul>
+                        <li><code>admin' OR '1'='1</code> (bypass de autenticación)</li>
+                        <li><code>admin' --</code> (comentar el resto de la query)</li>
+                        <li><code>' OR 1=1 --</code> (login sin credenciales)</li>
+                    </ul>
+                    <p><strong>Los errores SQL se muestran en la página</strong> para facilitar la explotación.</p>
+                    <a href="@Url.Action("Index", "VulnerableLogin")" class="btn btn-danger btn-lg">
+                        Probar Login Vulnerable
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h3>🔐 Login Seguro</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Este login utiliza <strong>consultas parametrizadas</strong> que previenen SQL Injection.
+                        Los parámetros se escapan automáticamente.
+                    </p>
+                    <h5>Protección:</h5>
+                    <ul>
+                        <li>Usa parámetros (@@username, @@password)</li>
+                        <li>Los intentos de inyección se tratan como texto literal</li>
+                        <li>No muestra detalles de errores SQL</li>
+                    </ul>
+                    <p>Intenta los mismos ataques aquí y verás que no funcionan.</p>
+                    <a href="@Url.Action("Index", "SecureLogin")" class="btn btn-success btn-lg">
+                        Probar Login Seguro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header bg-info text-white">
+            <h4>📚 Credenciales de prueba</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Contraseña</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>admin</code></td>
+                        <td><code>admin123</code></td>
+                        <td>Admin</td>
+                    </tr>
+                    <tr>
+                        <td><code>user1</code></td>
+                        <td><code>password1</code></td>
+                        <td>User</td>
+                    </tr>
+                    <tr>
+                        <td><code>juan</code></td>
+                        <td><code>secreto</code></td>
+                        <td>User</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3>🎯 Objetivos de aprendizaje:</h3>
+        <ol>
+            <li>Comprender cómo funciona SQL Injection</li>
+            <li>Ver la diferencia entre código vulnerable y seguro</li>
+            <li>Aprender a usar consultas parametrizadas</li>
+            <li>Reconocer los riesgos de mostrar errores SQL al usuario</li>
+        </ol>
+    </div>
+</div>
